@@ -7,11 +7,11 @@ public class Main {
 	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String args[]) throws IOException {
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
 		nums = new int[N];
 		for (int i = 0; i < N; i++) {
-			nums[i] = sc.nextInt();
+			nums[i] = Integer.parseInt(br.readLine());
 		}
 		Arrays.sort(nums);
 		for (int i = 0; i < N; i++) {
