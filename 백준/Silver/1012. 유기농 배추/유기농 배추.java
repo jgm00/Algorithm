@@ -21,6 +21,7 @@ public class Main {
 			visited[nx][ny] = 1;
 			dfs(nx, ny);
 		}
+        return;
 	}
 
 	public static void main(String[] args) throws IOException {
