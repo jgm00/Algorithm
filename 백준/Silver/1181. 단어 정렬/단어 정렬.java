@@ -2,27 +2,30 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+	static String[] lst;
 	static int N;
-	static String[] str1;
 
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
-		str1 = new String[N];
+		lst = new String[N];
 		for (int i = 0; i < N; i++) {
-			str1[i] = br.readLine();
+			String str = br.readLine();
+			lst[i] = str;
 		}
-		Arrays.sort(str1, (o1, o2) -> {
+		Arrays.sort(lst, (o1, o2) -> {
 			if (o1.length() == o2.length()) {
 				return o1.compareTo(o2);
 			}
 			return o1.length() - o2.length();
 		});
-		System.out.println(str1[0]);
-		for (int i = 1; i < str1.length; i++) {
-			if (str1[i].equals(str1[i - 1]) == false) {
-				System.out.println(str1[i]);
+		for (int i = 0; i < N - 1; i++) {
+			String tstr = lst[i];
+			String tstr2 = lst[i + 1];
+			if (tstr.equals(tstr2) == false) {
+				System.out.println(tstr);
 			}
 		}
+		System.out.println(lst[N - 1]);
 	}
 }
