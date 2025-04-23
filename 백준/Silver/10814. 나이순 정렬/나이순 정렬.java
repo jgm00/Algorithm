@@ -4,39 +4,42 @@ import java.util.*;
 public class Main {
 	static int N;
 
-	static class Student implements Comparable<Student> {
+	static class Person implements Comparable<Person> {
 		int idx;
 		int age;
 		String name;
 
-		Student(int idx, int age, String name) {
+		Person(int idx, int age, String name) {
 			this.idx = idx;
 			this.age = age;
 			this.name = name;
 		}
 
 		@Override
-		public int compareTo(Student o1) {
+		public int compareTo(Person o1) {
 			if (this.age == o1.age) {
 				return this.idx - o1.idx;
 			}
-			return this.age - o1.age; // 오름차순
+			return this.age - o1.age;
 		}
 	}
 
-	static Student[] students;
+	static Person[] p;
 
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
-		students = new Student[N];
+		p = new Person[N];
+		StringTokenizer st;
 		for (int i = 0; i < N; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			students[i] = new Student(i, Integer.parseInt(st.nextToken()), st.nextToken());
+			st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			String b = st.nextToken();
+			p[i] = new Person(i, a, b);
 		}
-		Arrays.sort(students);
+		Arrays.sort(p);
 		for (int i = 0; i < N; i++) {
-			System.out.println(students[i].age + " " + students[i].name);
+			System.out.println(p[i].age + " " + p[i].name);
 		}
 	}
 }
