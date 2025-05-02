@@ -13,7 +13,9 @@ public class Main
         }
     }
     
-    static PriorityQueue<Pair> pq;
+    static PriorityQueue<Pair> pq = new PriorityQueue<Pair>((o1,o2)->{
+	        return o1.y - o2.y;
+	    });
     
     static int[] dist;
     static ArrayList<Pair>[] alist;
@@ -28,9 +30,6 @@ public class Main
 	        alist[i] = new ArrayList<Pair>();
 	        dist[i] = Integer.MAX_VALUE;
 	    }
-	    pq = new PriorityQueue<Pair>((o1,o2)->{
-	        return o1.y - o2.y;
-	    });
 	    for(int i=0;i<M;i++){
 	        StringTokenizer st = new StringTokenizer(br.readLine());
 	        int v1 = Integer.parseInt(st.nextToken());
