@@ -19,7 +19,7 @@ public class Main
     static int[][][] vis;
     static void bfs(){
         while(!q.isEmpty()){
-            if(vis[0][0][0] == 1) return;
+            if(vis[0][0][0] != 0) return;
             Trip cur = q.poll();
             for(int i=0;i<6;i++){
                 int a = Math.max(0, cur.x - damage[i][0]);
