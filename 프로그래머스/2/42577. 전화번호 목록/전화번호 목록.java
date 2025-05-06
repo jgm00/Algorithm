@@ -2,20 +2,20 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-    static HashSet<String> hset;
+    static HashMap<String, Integer> hmap;
     public boolean solution(String[] phone_book) {
         boolean answer = true;
-        hset = new HashSet<>();
-        for(String str1 : phone_book){
-            hset.add(str1);
+        hmap = new HashMap<>();
+        int idx = 0;
+        for(String phone : phone_book){
+            hmap.put(phone, idx++);
         }
         for(String str : phone_book){
-            for(int i=1;i<str.length();i++){
-               String temp = str.substring(0,i);
-                if(hset.contains(temp)==true){
+            for(int i=1;i<str.length(); i++){
+                if(hmap.containsKey(str.substring(0,i)) == true){
                     answer = false;
                     break;
-                }
+                };
             }
         }
         return answer;
