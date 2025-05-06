@@ -1,46 +1,37 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {
-	static int N;
-	static ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-	static int[] parent;
-	static Queue<Integer> q = new LinkedList<>();
-
-	static void bfs(int root) {
-		while (!q.isEmpty()) {
-			int cur = q.poll();
-			for (int nxt : adj.get(cur)) {
-				if (nxt == parent[cur])
-					continue;
-				q.add(nxt);
-				parent[nxt] = cur;
-			}
-		}
-	}
-
+public class Main
+{
+    static int N;
+    static ArrayList<Integer>[] graph;
+    static int[] par;
+    static void dfs(int cur, int parent){
+        for(int nxt : graph[cur]){
+            if(nxt == parent) continue;
+            par[nxt] = cur;
+            dfs(nxt,cur);
+        }
+    }
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
 		N = Integer.parseInt(br.readLine());
-
-		for (int i = 0; i < N + 1; i++) {
-			adj.add(new ArrayList<Integer>());
+		graph = new ArrayList[N+1];
+		for(int i=0;i<N+1;i++){
+		    graph[i] = new ArrayList<>();
 		}
-
-		parent = new int[N + 1];
-
-		for (int i = 0; i < N - 1; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			int s = Integer.parseInt(st.nextToken());
-			int v = Integer.parseInt(st.nextToken());
-			adj.get(s).add(v);
-			adj.get(v).add(s);
+		par = new int[N+1];
+		for(int i=0;i<N-1;i++){
+		    StringTokenizer st = new StringTokenizer(br.readLine());
+		    int v1 = Integer.parseInt(st.nextToken());
+		    int v2 = Integer.parseInt(st.nextToken());
+		    graph[v1].add(v2);
+		    graph[v2].add(v1);
 		}
-		q.add(1);
-		bfs(1);
-		for (int i = 2; i < N + 1; i++) {
-			System.out.println(parent[i]);
+		par[1] = -1;
+		dfs(1,-1);
+		for(int i=2;i<N+1;i++){
+		    System.out.println(par[i]);
 		}
 	}
 }
