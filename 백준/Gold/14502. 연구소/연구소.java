@@ -16,9 +16,7 @@ public class Main {
     static int[] dx = {1,0,-1,0};
     static int[] dy = {0,1,0,-1};
     static Queue<Pair> q;
-    static void bfs(int x, int y){
-        q.add(new Pair(x,y));
-        vis[x][y] = 1;
+    static void bfs(){
         while(!q.isEmpty()){
             Pair p = q.poll();
             
@@ -61,26 +59,30 @@ public class Main {
         ArrayList<Pair> q1 = new ArrayList<>();
         for(int i=0;i<N;i++){
             for(int j=0;j<M;j++){
-                q1.add(new Pair(i,j));
+                if(board[i][j] == 0){
+                q1.add(new Pair(i,j));}
             }
         }
         boolean flag = false;
         for(int i=0;i<q1.size();i++){
             for(int j=i+1; j<q1.size(); j++){
                 for(int k=j+1; k<q1.size(); k++){
-                    if(board[q1.get(i).x][q1.get(i).y] == 0 && board[q1.get(j).x][q1.get(j).y] == 0 && board[q1.get(k).x][q1.get(k).y] == 0){
         board[q1.get(i).x][q1.get(i).y] = 1;
         board[q1.get(j).x][q1.get(j).y] = 1;
         board[q1.get(k).x][q1.get(k).y] = 1;
         q = new LinkedList<>();
         vis = new int[N][M];
+        
         for(int i1=0;i1<N;i1++){
             for(int j1=0;j1<M;j1++){
                 if(board[i1][j1] == 2){
-                    bfs(i1,j1);
+                    q.add(new Pair(i1,j1));
+                    vis[i1][j1] = 1;
+                    
                 }
             }
         }
+        bfs();
         int k1 = check();
         mn = Math.max(k1,mn);
 
@@ -89,7 +91,6 @@ public class Main {
         board[q1.get(k).x][q1.get(k).y] = 0;
                     }}}   
                     
-                    }
                     System.out.println(mn);
         
     }
