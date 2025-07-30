@@ -1,60 +1,47 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-
-    static int cur, nx;
-    static int[] board = new int[100001];
-
-    public static void main(String[] args) throws IOException {
-
+public class Main
+{
+    static int N,K;
+    static int[] vis;
+	static Queue<Integer> q = new LinkedList<>();
+	static ArrayList<Integer> alist;
+	public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-
-        Queue<Integer> Q = new LinkedList<>();
-
-        for (int i = 0; i < 100001; i++) {
-            board[i] = -1;
-        }
-
-        board[N] = 0;
-        Q.add(N);
-
-        while (!Q.isEmpty()) {
-            cur = Q.poll();
-
-            if (cur == K) {
-                System.out.println(board[K]);
-                return;
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        vis = new int[100001];
+        alist = new ArrayList<>();
+        q.add(N);
+        vis[N] = 1;
+        while(!q.isEmpty()){
+            int cur = q.poll();
+            if(cur == K){
+                System.out.println(vis[cur] - 1);
+                break;
             }
-
-            for (int i = 0; i < 3; i++) {
-                switch (i) {
-                    case 0:
-                        nx = cur - 1;
-                        break;
-                    case 1:
-                        nx = cur + 1;
-                        break;
-                    case 2:
-                        nx = cur * 2;
-                        break;
-                }
-
-                if (nx < 0 || nx > 100000) continue;
-                if (board[nx] != -1) continue;
-                
-                    board[nx] = board[cur] + 1;
-                    Q.add(nx);
-                
+            if(cur -1 >= 0 && cur - 1 < 100001){
+            int nx = cur - 1;
+            if(vis[nx] == 0){
+                q.add(nx);
+                vis[nx] = vis[cur] + 1;}
             }
+            if(cur + 1 >= 0 && cur + 1 < 100001){
+            int nx = cur + 1;
+            if(vis[nx] == 0){
+                q.add(nx);
+                vis[nx] = vis[cur] + 1;}
+            }
+            if(cur * 2 >= 0 && cur * 2 < 100001){
+            int nx = cur * 2;
+            if(vis[nx] == 0){
+                q.add(nx);
+                vis[nx] = vis[cur] + 1;}
+            }
+            
         }
         
-    }
+	}
 }
