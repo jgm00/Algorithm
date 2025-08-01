@@ -1,24 +1,25 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {
-
-	static long[] nums;
-
-	public static void main(String args[]) throws IOException {
-		Scanner sc = new Scanner(System.in);
-		nums = new long[1000001];
-		nums[0] = 0;
-		nums[1] = 1;
-		nums[2] = 2;
-		nums[3] = 4;
-		for (int j = 4; j <= 1000000; j++) {
-			nums[j] = (nums[j - 1] + nums[j - 2] + nums[j - 3]) % 1000000009;
-		}
-		int T = sc.nextInt();
-		for (int i = 0; i < T; i++) {
-			int k = sc.nextInt();
-			System.out.println(nums[k]);
-		}
+public class Main
+{
+    static int T;
+    static long[] dp;
+    static int mx = 1000000;
+	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        T = Integer.parseInt(br.readLine());
+        dp = new long[mx+1];
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 4;
+        for(int i=4;i<mx+1;i++){
+            dp[i] = (dp[i-1] + dp[i-2] + dp[i-3])%(1000000009);
+        }
+        for(int i=0;i<T;i++){
+            int k = Integer.parseInt(br.readLine());
+            System.out.println(dp[k]);
+        }
+        
 	}
 }
