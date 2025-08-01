@@ -13,12 +13,12 @@ public class Main {
 		Fibo[0][1] = 0;
 		Fibo[1][0] = 0;
 		Fibo[1][1] = 1;
-		for (int i = 0; i < T; i++) {
-			int k = Integer.parseInt(br.readLine());
-			for (int j = 2; j <= k; j++) {
+		for (int j = 2; j <= 40; j++) {
 				Fibo[j][0] = Fibo[j - 1][0] + Fibo[j - 2][0];
 				Fibo[j][1] = Fibo[j - 1][1] + Fibo[j - 2][1];
-			}
+		}
+		for (int i = 0; i < T; i++) {
+			int k = Integer.parseInt(br.readLine());
 			System.out.println(Fibo[k][0] + " " + Fibo[k][1]);
 		}
 	}
