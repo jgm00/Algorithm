@@ -4,59 +4,48 @@ import java.io.*;
 public class Main
 {
     static int N,M;
-    
     static class Pair{
-        int x,y;
+        int x, y;
         Pair(int x, int y){
             this.x = x;
             this.y = y;
         }
     }
-    
-    static PriorityQueue<Pair> pq = new PriorityQueue<Pair>((o1,o2)->{
-	        return o1.y - o2.y;
-	    });
-    
+    static ArrayList<Pair>[] adj;
     static int[] dist;
-    static ArrayList<Pair>[] alist;
-	
-    public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    N = Integer.parseInt(br.readLine());
-	    M = Integer.parseInt(br.readLine());
-	    alist = new ArrayList[N+1];
-	    dist = new int[N+1];
-	    for(int i=0;i<N+1;i++){
-	        alist[i] = new ArrayList<Pair>();
-	        dist[i] = Integer.MAX_VALUE;
-	    }
-	    for(int i=0;i<M;i++){
-	        StringTokenizer st = new StringTokenizer(br.readLine());
-	        int v1 = Integer.parseInt(st.nextToken());
-	        int s1 = Integer.parseInt(st.nextToken());
-	        int d1 = Integer.parseInt(st.nextToken());
-	        
-	        alist[v1].add(new Pair(s1,d1));
-
-	    }
-	    StringTokenizer st = new StringTokenizer(br.readLine());
-        int mys = Integer.parseInt(st.nextToken());
-        int myv = Integer.parseInt(st.nextToken());
-        
-        dist[mys] = 0;
-        pq.add(new Pair(mys,0));
-        
+    static StringTokenizer st;
+    static PriorityQueue<Pair> pq = new PriorityQueue<>((o1,o2) -> o1.y - o2.y);
+	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        N = Integer.parseInt(br.readLine());
+        M = Integer.parseInt(br.readLine());
+        dist = new int[N+1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        adj = new ArrayList[N+1];
+        for(int i=1;i<=N;i++){
+            adj[i] = new ArrayList<>();
+        }
+        for(int i=0;i<M;i++){
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            int d = Integer.parseInt(st.nextToken());
+            adj[a].add(new Pair(b,d));
+        }
+        st = new StringTokenizer(br.readLine());
+        int s = Integer.parseInt(st.nextToken());
+        int e = Integer.parseInt(st.nextToken());
+        dist[s] = 0;
+        pq.add(new Pair(s,0));
         while(!pq.isEmpty()){
             Pair p = pq.poll();
-            if(p.y != dist[p.x]) continue;
-            for(Pair nxt : alist[p.x]){
-                int dn = dist[p.x] + nxt.y;
-                if(dn < dist[nxt.x]) {
-                    pq.add(new Pair(nxt.x, dn));
-                    dist[nxt.x] = dn;
-                }
+            if(dist[p.x] < p.y) continue;
+            for(Pair node : adj[p.x]){
+                if(dist[node.x] <= (dist[p.x] + node.y)) continue;
+                dist[node.x] = dist[p.x] + node.y;
+                pq.add(new Pair(node.x, dist[node.x]));
             }
         }
-        System.out.println(dist[myv]);
+	    System.out.println(dist[e]);
 	}
 }
