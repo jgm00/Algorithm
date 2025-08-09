@@ -14,7 +14,14 @@ public class Main
         a = find(a); 
         b = find(b);
         if(a==b) return;
-        p[b] = a;
+        if(r[a] < r[b]){
+            p[a] = b;
+        }else{
+            p[b] = a; 
+            if(r[a] == r[b]){
+                r[a]++;
+            }
+        }
     }
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,6 +29,7 @@ public class Main
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		p = new int[N+1];
+        r = new int[N+1];
 		Arrays.fill(p,-1);
 		for(int i=1;i<=M;i++){
 		    st = new StringTokenizer(br.readLine());
