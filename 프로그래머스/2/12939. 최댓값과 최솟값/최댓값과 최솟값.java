@@ -12,9 +12,9 @@ class Solution {
             MN = Math.min(MN, k);
             MX = Math.max(MX, k);
         }
-        answer += Integer.toString(MN);
+        answer += MN;
         answer += " ";
-        answer += Integer.toString(MX);
+        answer += MX;
         return answer;
     }
 }
