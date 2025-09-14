@@ -460,7 +460,7 @@ ON A.dept_id = B.id;
 ```sql
 SELECT *
 FROM [테이블1] AS A
-LEFT OUTer JOIN [테이블2] AS B
+LEFT OUTER JOIN [테이블2] AS B
 ON A.KEY = B.KEY
 ```
 
