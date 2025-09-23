@@ -17,9 +17,8 @@
   - [6-1. INNER JOIN](#6-1-inner-join)
   - [6-2. LEFT OUTER JOIN](#6-2-left-outer-join)
   - [6-3. RIGHT OUTER JOIN](#6-3-right-outer-join)
-  - [6-4. FULL OUTER JOIN](#6-4-full-outer-join)
-  - [6-5. SELF JOIN](#6-5-self-join)
-  - [6-6. CROSS JOIN](#6-6-cross-join)
+  - [6-4. SELF JOIN](#6-4-self-join)
+  - [6-5. CROSS JOIN](#6-5-cross-join)
 - [7. 집계 함수 (Aggregate Functions)](#7-집계-함수-aggregate-functions)
   - [7-1. MAX](#7-1-max)
   - [7-2. MIN](#7-2-min)
@@ -502,11 +501,10 @@ ON A.dept_id = B.id;
 ### 6-3. RIGHT OUTER JOIN
 
 ```sql
-SELECT [컬럼1], [컬럼2] 
-FROM [테이블명1]
-UNION ALL
-SELECT [컬럼1], [컬럼2] 
-FROM [테이블명2];
+SELECT *
+FROM [테이블1] AS A
+RIGHT OUTER JOIN [테이블2] AS B
+ON A.KEY = B.KEY
 ```
 
 예시)
@@ -546,53 +544,7 @@ ON A.dept_id = B.id;
 
 ---
 
-### 6-4. FULL OUTER JOIN
-
-```sql
-SELECT *
-FROM [테이블1] AS A
-FULL OUTER JOIN [테이블2] AS B
-ON A.KEY = B.KEY
-```
-
-예시)
-```sql
-SELECT A.name, B.department
-FROM employees AS A
-FULL OUTER JOIN departments AS B
-ON A.dept_id = B.id;
-```
-
-#### 예시 데이터
-
-**employees**
-
-| id | name    | dept\_id |
-| -- | ------- | -------- |
-| 1  | Alice   | 1        |
-| 2  | Bob     | 2        |
-| 3  | Charlie | 1        |
-
-**departments**
-
-| id | department |
-| -- | ---------- |
-| 1  | CS         |
-| 2  | Math       |
-| 3  | Physics    |
-
-#### 결과
-
-| name    | department |
-| ------- | ---------- |
-| Alice   | CS         |
-| Bob     | Math       |
-| Charlie | CS         |
-| NULL    | Physics    |
-
----
-
-### 6-5. SELF JOIN
+### 6-4. SELF JOIN
 
 ```sql
 SELECT *
@@ -626,7 +578,7 @@ ON A.manager_id = B.id;
 
 ---
 
-### 6-6. CROSS JOIN
+### 6-5. CROSS JOIN
 
 ```sql
 SELECT *
@@ -903,61 +855,64 @@ SELECT NOW() AS current_datetime;
 
 ---
 
-### 9-2. AGE(timestamp, timestamp) / AGE(timestamp)
+### 9-2. TIMESTAMPDIFF
 
-: 두 날짜 사이의 차이를 반환한다.
+: datetime_expr2 - datetime_expr1의 차이를 지정한 단위(unit)로 반환한다.
 
-* AGE(date1, date2) → date1 - date2
-* AGE(date) → NOW() - date
+* TIMESTAMPDIFF(unit, datetime_expr1, datetime_expr2)
 
 ```sql
-SELECT AGE(DATE '2000-01-01') AS age_from_2000;
-
-SELECT AGE(DATE '2025-12-31', DATE '2025-01-01') AS diff;
+SELECT TIMESTAMPDIFF(YEAR, '2000-01-01', NOW()) AS years_from_2000;
 ```
 
 #### 결과
 
-| age\_from\_2000         | diff                    |
-| ----------------------- | ----------------------- |
-| 25 years 8 mons 12 days | 0 years 11 mons 30 days |
+| years\_from\_2000 |
+| ----------------- |
+| 25                |
+
 
 ---
 
-### 9-3. DATE\_PART(text, timestamp)
+### 9-3. EXTRACT(unit FROM date)
 
-: 특정 시간 단위를 추출한다.
+: 날짜/시간에서 특정 단위를 추출한다.
+* EXTRACT(unit FROM date)
 
 ```sql
-SELECT DATE_PART('year', NOW())  AS current_year,
-       DATE_PART('month', NOW()) AS current_month,
-       DATE_PART('day', NOW())   AS current_day,
-       DATE_PART('hour', NOW())  AS current_hour;
+SELECT 
+  EXTRACT(YEAR  FROM NOW())  AS current_year,
+  EXTRACT(MONTH FROM NOW())  AS current_month,
+  EXTRACT(DAY   FROM NOW())  AS current_day,
+  EXTRACT(HOUR  FROM NOW())  AS current_hour;
 ```
 
 #### 결과
 
 | current\_year | current\_month | current\_day | current\_hour |
 | ------------- | -------------- | ------------ | ------------- |
-| 2025          | 9              | 13           | 12            |
+| 2025          | 9              | 24           | 13            |
+
 
 ---
 
-### 9-4. DATE\_TRUNC(text, timestamp)
+### 9-4. DATE_FORMAT(date, format)
 
-: 지정된 단위 이하를 0으로 초기화한다 (즉, 잘라낸다).
+: 날짜/시간을 지정한 형식 문자열로 변환한다.
+* DATE_FORMAT(date, format)
 
 ```sql
-SELECT DATE_TRUNC('year', NOW())  AS year_start,
-       DATE_TRUNC('month', NOW()) AS month_start,
-       DATE_TRUNC('day', NOW())   AS day_start;
+SELECT 
+  DATE_FORMAT(NOW(), '%Y-01-01 00:00:00') AS year_start,
+  DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') AS month_start,
+  DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00') AS day_start;
 ```
 
 #### 결과
 
 | year\_start         | month\_start        | day\_start          |
 | ------------------- | ------------------- | ------------------- |
-| 2025-01-01 00:00:00 | 2025-09-01 00:00:00 | 2025-09-13 00:00:00 |
+| 2025-01-01 00:00:00 | 2025-09-01 00:00:00 | 2025-09-24 00:00:00 |
 
 ---
 
