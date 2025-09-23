@@ -1,0 +1,4 @@
+SELECT FLAVOR
+FROM FIRST_HALF
+WHERE TOTAL_ORDER > 3000 AND (FLAVOR = 'peach' OR FLAVOR = 'watermelon' OR FLAVOR = 'mango' OR FLAVOR = 'strawberry' OR FLAVOR = 'melon' OR FLAVOR = 'orange' OR FLAVOR = 'pineapple')
+ORDER BY TOTAL_ORDER DESC;
