@@ -1,20 +1,21 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 class Solution {
-    static ArrayList<Integer> alist;
     public int[] solution(int[] array, int[][] commands) {
         int[] answer = new int[commands.length];
-        for(int i=0;i<commands.length;i++){
-            int b = commands[i][1];
-            int a = commands[i][0];
-            int k = b - a + 1;
-            alist = new ArrayList<>();
-            for(int j = a-1;j < b;j++){
-                alist.add(array[j]);
+        for(int t=0;t<commands.length;t++){
+            int i = commands[t][0];
+            int j = commands[t][1];
+            int k = commands[t][2];
+            int d = (j-i) + 1;
+            int[] tmp = new int[d+1];
+            int idx = 0;
+            for(int tc =(i-1); tc <= (j-1);tc++){
+                tmp[idx++] = array[tc];
             }
-            Collections.sort(alist);
-            answer[i] = alist.get(commands[i][2]-1);
+            Arrays.sort(tmp);
+            answer[t] = tmp[k];
         }
         return answer;
     }
