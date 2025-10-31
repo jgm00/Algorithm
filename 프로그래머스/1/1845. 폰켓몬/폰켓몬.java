@@ -2,18 +2,18 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-    static HashSet<Integer> hset;
+    static int N;
+    static HashSet<Integer> hset = new HashSet<>();
     public int solution(int[] nums) {
         int answer = 0;
-        hset = new HashSet<>();
-        for(int i=0;i<nums.length;i++){
-            //System.out.println(nums[i]);
-            hset.add(nums[i]);
+        for(int k: nums){
+            hset.add(k);
         }
-        if(nums.length/2 < hset.size()){
-            answer = nums.length/2;
-        }else{
+        int N = nums.length;
+        if(hset.size() <= N/2){
             answer = hset.size();
+        }else{
+            answer = N/2;
         }
         return answer;
     }
