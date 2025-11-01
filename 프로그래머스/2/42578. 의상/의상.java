@@ -2,18 +2,17 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-    static HashMap<String, Integer> hmap;
+    static HashMap<String, Integer> hmap = new HashMap<>();
     public int solution(String[][] clothes) {
-        hmap = new HashMap<>();
         int answer = 0;
         for(int i=0;i<clothes.length;i++){
-            hmap.put(clothes[i][1], hmap.getOrDefault(clothes[i][1],0)+1);
+            String s = clothes[i][1];
+            hmap.put(s,hmap.getOrDefault(s,0)+1);
         }
-        int d = 1;
-        for(String key : hmap.keySet()){
-            d *= (hmap.get(key) + 1);
+        int sm = 1;
+        for(int k : hmap.values()){
+            sm *= (k+1);
         }
-        answer = d - 1;
-        return answer;
+        return sm-1;
     }
 }
