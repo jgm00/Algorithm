@@ -1,31 +1,32 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main
-{   
-    static int N, Q;
-    static int[] arr, psum;
+{
+    static int N,Q;
+    static int[] nums,acc;
 	public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        Q = Integer.parseInt(st.nextToken());
-        arr = new int[N+1];
-        psum = new int[N+1];
-        st = new StringTokenizer(br.readLine());
-        for(int i=1;i<=N;i++){
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
-        for(int i=1;i<=N;i++){
-            psum[i] = psum[i-1]^arr[i];
-        }
-        int sum =0;
-        for(int i=1;i<=Q;i++){
-            st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            sum ^= (psum[b] ^ psum[a-1]);
-        }
-        System.out.println(sum);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		Q = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		nums = new int[N+1];
+		for(int i=1;i<=N;i++){
+		    nums[i] = Integer.parseInt(st.nextToken());
+		}
+		acc = new int[N+1];
+		acc[1] = nums[1];
+		for(int i=1;i<=N;i++){
+		    acc[i] = acc[i-1] ^ nums[i];
+		}
+		int answer = 0;
+		for(int i=0;i<Q;i++){
+		    st = new StringTokenizer(br.readLine());
+		    int a = Integer.parseInt(st.nextToken());
+		    int b = Integer.parseInt(st.nextToken());
+		    answer ^= (acc[b]^acc[a-1]);
+		}
+		System.out.println(answer);
 	}
 }
