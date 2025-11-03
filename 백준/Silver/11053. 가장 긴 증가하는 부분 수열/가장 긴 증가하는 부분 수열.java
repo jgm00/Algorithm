@@ -1,30 +1,25 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {
-	static int N;
-	static int[] lsi;
-	static int[] nums;
-
-	public static void main(String args[]) throws IOException {
+public class Main
+{
+    static int N, ans;
+    static int[] num, cnt;
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
+		num = new int[N]; cnt = new int[N];
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		nums = new int[N];
-		for (int i = 0; i < N; i++) {
-			nums[i] = Integer.parseInt(st.nextToken());
-		}
-		int ans = Integer.MIN_VALUE;
-		lsi = new int[N];
-		for (int i = 0; i < N; i++) {
-			int prev = 0;
-			for (int j = 0; j < i; j++) {
-				if (nums[j] < nums[i] && prev < lsi[j]) {
-					prev = lsi[j];
-				}
-			}
-			lsi[i] = prev + 1;
-			ans = Math.max(ans, lsi[i]);
+		for(int i=0;i<N;i++){
+		    num[i] = Integer.parseInt(st.nextToken());
+		    int maxValue = 0;
+		    for(int j=0;j<i;j++){
+		        if(num[i] > num[j] && maxValue < cnt[j]){
+		            maxValue = cnt[j];
+		        }
+		    }
+		    cnt[i] = maxValue + 1;
+		    ans = Math.max(cnt[i],ans);
 		}
 		System.out.println(ans);
 	}
