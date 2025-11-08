@@ -2,63 +2,50 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-    static class Song implements Comparable<Song> {
-        int idx;
-        int songcnt;
-        Song(int idx, int songcnt){
-            this.idx = idx;
-            this.songcnt = songcnt;
-        }
-        @Override
-        public int compareTo(Song o1){
-            if(this.songcnt == o1.songcnt){
-                return this.idx - o1.idx;
-            }
-            return o1.songcnt - this.songcnt;
+    static class Pair{
+        int x, y;
+        Pair(int x, int y){
+            this.x = x;
+            this.y = y;
         }
     }
-    static HashMap<String, Integer> hmap;
-    static HashMap<String, ArrayList<Song>> hsong;
+    static ArrayList<Integer> ans = new ArrayList<>();
+    static HashMap<String, Integer> hmap = new HashMap<>();
+    static HashMap<String, List<Pair>> hmap2 = new HashMap<>();
     public int[] solution(String[] genres, int[] plays) {
-        hmap = new HashMap<>();
-        hsong = new HashMap<>();
-        for(int i=0;i<genres.length; i++){
-            if(hmap.containsKey(genres[i]) == true){
-                hmap.put(genres[i],hmap.get(genres[i])+plays[i]);
-            }else{
-                hmap.put(genres[i],plays[i]);
+        int[] answer = {};
+        for(int i=0;i<plays.length;i++){
+            hmap.put(genres[i], hmap.getOrDefault(genres[i],0)+plays[i]);
+            if(!hmap2.containsKey(genres[i])){
+                hmap2.put(genres[i], new ArrayList<>());
             }
-            if(hsong.containsKey(genres[i]) == false){
-                    hsong.put(genres[i], new ArrayList<>());
-                    hsong.get(genres[i]).add(new Song(i,plays[i]));
-                }else{
-                    hsong.get(genres[i]).add(new Song(i,plays[i]));
-                }
+            hmap2.get(genres[i]).add(new Pair(i,plays[i]));
         }
-        List<Map.Entry<String, Integer>> hlst = new ArrayList<>(hmap.entrySet());
-        Collections.sort(hlst,(o1,o2)->{
+        List<Map.Entry<String, Integer>> alst = new ArrayList<>(hmap.entrySet());
+        Collections.sort(alst,(o1,o2)->{
             return o2.getValue() - o1.getValue();
         });
-        ArrayList<Integer> tempans = new ArrayList<>();
-        int anscnt = 0;
-        for(int i=0;i<hlst.size();i++){
-            System.out.println(hlst.get(i).getKey());
-            ArrayList<Song> alst = hsong.get(hlst.get(i).getKey());
-            Collections.sort(alst);
-            int cnt = 0;
-            for(int j=0;j<alst.size();j++){
-                if(cnt >= 2){
+        for(int i=0;i<alst.size();i++){
+            String s = alst.get(i).getKey();
+            Collections.sort(hmap2.get(s), (o1,o2)->{
+                return o2.y - o1.y;
+            });
+        }
+        for(int i=0;i<alst.size();i++){
+            int idx = 0;
+            String s = alst.get(i).getKey();
+            for(int j=0;j<hmap2.get(s).size();j++){
+                ans.add(hmap2.get(s).get(j).x);
+                idx +=1;
+                if(idx == 2){
                     break;
                 }
-                tempans.add(alst.get(j).idx);
-                anscnt++;
-                System.out.println(alst.get(j).idx + " " + alst.get(j).songcnt);
-                cnt++;
             }
         }
-        int[] answer = new int[anscnt];
-        for(int i=0;i<anscnt;i++){
-            answer[i] = tempans.get(i);
+        int idxx = 0;
+        answer = new int[ans.size()];
+        for(int k : ans){
+            answer[idxx++] = k;
         }
         return answer;
     }
