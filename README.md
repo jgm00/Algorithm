@@ -34,7 +34,8 @@ k=1일 때 중간에 다른 정점을 거치지 않았거나 1번 정점을 거�
 - k번 정점을 거쳐가는 것이 유리하면: i→k→j 경로로 갱신
 
 **STANDARD 문제**
-- [BOJ 11780](https://www.acmicpc.net/problem/11780): 플로이드 2 [(최단 거리 + 경로 복원)](../백준/Gold/11780.%E2%80%85플로이드%E2%80%852/플로이드%E2%80%852.java)
+- [BOJ 11780](https://www.acmicpc.net/problem/11780): 플로이드 2 [(최단 거리 + 경로 복원)](https://github.com/jgm00/Algorithm/blob/main/백준/Gold/11780. 플로이드 2/플로이드 2.java)
+
 
 
 **주의사항**
