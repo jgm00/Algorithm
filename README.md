@@ -1,7 +1,4 @@
 # Algorithm
-This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
-
----
 
 <details>
 <summary><b>플로이드 워셜 (Floyd-Warshall)</b></summary><br>
