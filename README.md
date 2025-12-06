@@ -1,7 +1,4 @@
 # Algorithm
-This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
-
----
 
 <details>
 <summary><b>플로이드 워셜 (Floyd-Warshall)</b></summary><br>
@@ -37,7 +34,6 @@ k=1일 때 중간에 다른 정점을 거치지 않았거나 1번 정점을 거�
 - [BOJ 11780](https://www.acmicpc.net/problem/11780): 플로이드 2 [(최단 거리 + 경로 복원)](https://github.com/jgm00/Algorithm/blob/main/백준/Gold/11780. 플로이드 2/플로이드 2.java)
 
 
-
 **주의사항**
 - 방향 그래프, 무방향 그래프, 간선 값이 음수인 그래프 모두 가능
 - 음수 사이클이 있으면 제대로 작동하지 않음
@@ -47,3 +43,75 @@ k=1일 때 중간에 다른 정점을 거치지 않았거나 1번 정점을 거�
 - 상수 최적화: `dist[i][j] = min(...)`보다 `if`문으로 비교 후 대입이 더 빠름
 
 </details>
+
+
+<details>
+<summary><b>프림 (Prim)</b></summary><br>
+
+
+**개념**
+
+한 정점에서 시작해 트리를 확장해나가며 최소 신장 트리(MST)를 구성하는 알고리즘
+
+**시간복잡도**
+- 시간: O(ElogE)
+- 공간: O(V + E)
+
+**동작방법**
+1. 임의의 시작 정점을 선택해 MST에 포함
+2. 선택된 정점과 연결된 모든 간선을 우선순위 큐에 추가
+3. 우선순위 큐에서 최소 비용 간선 추출
+4. 간선이 연결하는 정점이 MST에 포함되지 않았다면:
+   - 해당 간선과 정점을 MST에 추가
+   - 새 정점과 연결된 간선들을 우선순위 큐에 추가
+5. MST에 V-1개의 간선이 포함될 때까지 3-4 반복
+
+**증명**
+
+매 단계마다 MST에 포함된 정점과 포함되지 않은 정점을 연결하는 최소 비용 간선을 선택하는 것이 최적임을 Cut Property로 증명 가능
+
+**핵심 아이디어**
+- 현재 MST와 연결 가능한 간선 중 가장 비용이 작은 것을 매번 선택
+- 우선순위 큐로 최소 비용 간선을 효율적으로 관리
+- 이미 MST에 포함된 정점으로 가는 간선은 스킵
+
+**STANDARD 문제**
+* [BOJ1197](https://www.acmicpc.net/problem/1197): 최소 스패닝 트리 [(최소 MST 가중치)](https://github.com/jgm00/Algorithm/tree/main/%EB%B0%B1%EC%A4%80/Gold/1197.%E2%80%85%EC%B5%9C%EC%86%8C%E2%80%85%EC%8A%A4%ED%8C%A8%EB%8B%9D%E2%80%85%ED%8A%B8%EB%A6%AC/%EC%B5%9C%EC%86%8C%E2%80%85%EC%8A%A4%ED%8C%A8%EB%8B%9D%E2%80%85%ED%8A%B8%EB%A6%AC.java)
+
+</details>
+
+<details>
+<summary><b>LCS (Longest Common Subsequence)</b></summary><br>
+
+**개념**
+
+두 문자열에서 순서를 유지하면서 공통으로 나타나는 부분 수열 중 가장 긴 것을 찾는 알고리즘
+
+**시간복잡도**
+- 시간: O(N × M)
+- 공간: O(N × M)
+
+**동작방법**
+1. 2차원 DP 테이블 생성: dp[i][j] = 문자열 A의 i번째까지, B의 j번째까지의 LCS 길이
+2. 초기화: dp[0][j] = 0, dp[i][0] = 0
+3. 점화식:
+   - A[i] == B[j]인 경우: dp[i][j] = dp[i-1][j-1] + 1
+   - A[i] != B[j]인 경우: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+4. dp[N][M]이 LCS의 길이
+5. 역추적으로 실제 LCS 문자열 복원 가능
+
+**증명**
+
+최적 부분 구조: 두 문자열의 LCS는 마지막 문자의 일치 여부에 따라 부분 문제로 분할 가능. 동적 프로그래밍으로 중복 계산을 제거하며 최적해 도출
+
+**핵심 아이디어**
+- 문자가 같으면 이전 상태에서 +1
+- 문자가 다르면 더 긴 것 선택
+- 부분 문제의 최적해를 조합하여 전체 최적해 구성
+- 역추적으로 실제 수열 복원 가능
+
+**STANDARD 문제**
+* [BOJ9252](https://www.acmicpc.net/problem/9252): LCS 2 [(LCS + 복원)](https://github.com/jgm00/Algorithm/tree/main/%EB%B0%B1%EC%A4%80//Gold/9252.%E2%80%85LCS%E2%80%852/LCS%E2%80%852.java)
+
+</details>
+
