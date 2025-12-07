@@ -115,3 +115,38 @@ k=1일 때 중간에 다른 정점을 거치지 않았거나 1번 정점을 거�
 
 </details>
 
+<details>
+<summary><b>LCA (Lowest Common Ancestor)</b></summary><br>
+
+**개념**
+
+트리에서 두 정점의 공통 조상 중 가장 가까운(깊이가 가장 깊은) 조상을 찾는 알고리즘
+
+**시간복잡도**
+- 전처리: O(N log N)
+- 쿼리: O(N log N)
+- 공간: O(N log N)
+
+**동작방법**
+1. 루트에서 DFS로 각 정점의 깊이(depth)와 부모 정보 저장
+2. 각 정점에 대해 2^k번째 조상 정보를 sparse table로 전처리
+   - `parent[node][k]` = node의 2^k번째 조상
+3. LCA 쿼리 시:
+   - 두 정점의 깊이를 맞춤 (깊은 쪽을 올림)
+   - 두 정점이 같아질 때까지 동시에 올라감 (이진 탐색 방식)
+   - 공통 조상을 만나면 해당 정점이 LCA
+
+**증명**
+
+Sparse table을 이용하면 임의의 k번째 조상을 k의 이진 표현을 이용해 O(log N) 시간에 찾을 수 있음. 두 정점을 동시에 올리며 처음 만나는 지점이 LCA임이 보장됨
+
+**핵심 아이디어**
+- 2의 거듭제곱 단위로 조상을 저장하여 빠른 탐색
+- 깊이를 먼저 맞춘 후 이진 탐색으로 LCA 탐색
+- DP를 활용한 전처리로 쿼리 최적화
+- `parent[node][k] = parent[parent[node][k-1]][k-1]`
+
+**STANDARD 문제**
+- [BOJ11438](https://www.acmicpc.net/problem/11438): LCA 2 [(LCA + sparse table)](https://github.com/jgm00/Algorithm/tree/main/%EB%B0%B1%EC%A4%80/Platinum/11438.%E2%80%85LCA%E2%80%852/LCA%E2%80%852.java)
+
+</details>
