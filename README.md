@@ -150,3 +150,46 @@ Sparse table을 이용하면 임의의 k번째 조상을 k의 이진 표현을 �
 - [BOJ11438](https://www.acmicpc.net/problem/11438): LCA 2 [(LCA + sparse table)](https://github.com/jgm00/Algorithm/tree/main/%EB%B0%B1%EC%A4%80/Platinum/11438.%E2%80%85LCA%E2%80%852/LCA%E2%80%852.java)
 
 </details>
+
+<details>
+<summary><b>위상 정렬 (Topological Sort)</b></summary><br>
+
+**개념**
+
+방향 그래프에서 간선으로 주어진 정점 간 선후관계를 위배하지 않도록 나열하는 정렬
+
+**시간복잡도**
+- 시간: O(V+E)
+- 공간: O(V+E)
+
+**동작방법**
+1. 모든 정점의 indegree(진입차수) 계산
+2. indegree가 0인 정점들을 큐에 삽입
+3. 큐에서 정점을 꺼내 결과에 추가
+4. 해당 정점과 연결된 간선 제거 (연결된 정점의 indegree 감소)
+5. indegree가 0이 된 정점을 큐에 삽입
+6. 큐가 빌 때까지 3~5 반복
+
+**증명**
+
+indegree가 0인 정점은 자신보다 앞에 와야 할 정점이 없으므로 현재 시점에서 가장 앞에 올 수 있다. 해당 정점을 제거하면 연결된 정점들의 제약이 하나씩 사라지며, 사이클이 없는 DAG에서는 항상 indegree가 0인 정점이 존재한다는 귀납법
+
+**핵심 아이디어**
+- "이 정점보다 앞에 와야 할 정점이 있는가?"를 indegree로 판단
+- indegree가 0 = 선행 조건 모두 충족 = 현재 선택 가능
+- 선택한 정점은 더 이상 고려 대상이 아니므로 관련 간선 제거
+
+**STANDARD 문제**
+- [BOJ14567](https://www.acmicpc.net/problem/14567): 선수과목 (Prerequisite) [(Topological Sort)](https://github.com/jgm00/Algorithm/tree/main/%EB%B0%B1%EC%A4%80/Gold/14567.%E2%80%85%EC%84%A0%EC%88%98%EA%B3%BC%EB%AA%A9%E2%80%85%EF%BC%88Prerequisite%EF%BC%89/%EC%84%A0%EC%88%98%EA%B3%BC%EB%AA%A9%E2%80%85%EF%BC%88Prerequisite%EF%BC%89.java)
+
+
+**주의사항**
+- DAG(Directed Acyclic Graph)에서만 정의됨
+- 사이클이 존재하면 위상 정렬 불가능
+- 사이클 감지: 결과 배열의 크기가 정점 개수와 다르면 사이클 존재
+- 하나의 그래프에 여러 위상 정렬 결과가 존재 가능
+- visited 배열 불필요: indegree가 0이 되는 순간이 정점당 1번뿐
+- 큐 대신 스택, 배열 사용 가능 (순서는 달라질 수 있음)
+- DFS를 이용한 구현도 가능 (종료 시간의 역순 = 위상 정렬)
+
+</details>
