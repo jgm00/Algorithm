@@ -3,11 +3,11 @@ import java.io.*;
 
 public class Main
 {
-    static int N,S;
+    static int N,M;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int a = Integer.parseInt(br.readLine());
-		int b = Integer.parseInt(br.readLine());
-		System.out.println(a*b);
+		N = Integer.parseInt(br.readLine());
+		M = Integer.parseInt(br.readLine());
+		System.out.println(N*M);
 	}
 }
