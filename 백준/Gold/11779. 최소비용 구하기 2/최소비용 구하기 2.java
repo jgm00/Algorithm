@@ -1,77 +1,70 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main
 {
+    static int N,M;
     static class Pair{
-        int x, y;
+        int x,y,z;
         Pair(int x, int y){
             this.x = x;
             this.y = y;
         }
+        Pair(int x, int y, int z){
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
     }
-    static int N,M;
-    static StringTokenizer st;
-    static PriorityQueue<Pair> pq = new PriorityQueue<Pair>((o1,o2)->{
-        return o1.y - o2.y;
-    });
-    static int[] dist;
-    static int[] pre;
-    static ArrayList<Pair>[] graph;
+    static ArrayList<Pair>[] adj;
+    static int[] dist,pre;
+    static ArrayList<Integer> answer = new ArrayList<>();
+    static PriorityQueue<Pair> pq = new PriorityQueue<>((o1,o2)->{return o1.x-o2.x;});
 	public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        M = Integer.parseInt(br.readLine());
-        dist = new int[N+1];
-        pre = new int[N+1];
-        graph = new ArrayList[N+1];
-        for(int i=0;i<N+1;i++){
-            dist[i] = Integer.MAX_VALUE;
-            graph[i] = new ArrayList<>();
-        }
-        for(int i=0;i<M;i++){
-            st = new StringTokenizer(br.readLine());
-            int s1 = Integer.parseInt(st.nextToken());
-            int v1 = Integer.parseInt(st.nextToken());
-            int d1 = Integer.parseInt(st.nextToken());
-            
-            graph[s1].add(new Pair(v1,d1));
-        }
-        
-        st = new StringTokenizer(br.readLine());
-        int start = Integer.parseInt(st.nextToken());
-        int end = Integer.parseInt(st.nextToken());
-        
-        dist[start] = 0;
-        pq.add(new Pair(start,0));
-        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		M = Integer.parseInt(br.readLine());
+		adj = new ArrayList[N+1];
+		dist = new int[N+1];
+		pre = new int[N+1];
+		Arrays.fill(dist,Integer.MAX_VALUE);
+		for(int i=1;i<=N;i++){
+		    adj[i] = new ArrayList<>();
+		}
+		for(int i=0;i<M;i++){
+		    StringTokenizer st = new StringTokenizer(br.readLine());
+		    int u = Integer.parseInt(st.nextToken());
+		    int v = Integer.parseInt(st.nextToken());
+		    int w = Integer.parseInt(st.nextToken());
+		    adj[u].add(new Pair(v,w));
+		}
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+        dist[a] = 0;
+        pq.add(new Pair(0,a));
         while(!pq.isEmpty()){
             Pair p = pq.poll();
-            if(dist[p.x] != p.y) continue;
-            for(Pair nxt : graph[p.x]){
-                int nd = dist[p.x] + nxt.y;
-                if(dist[nxt.x] > nd ){
-                    pq.add(new Pair(nxt.x, nd));
-                    dist[nxt.x] = nd;
-                    pre[nxt.x] = p.x;
+            if(dist[p.y] != p.x) continue;
+            for(Pair nxt : adj[p.y]){
+                if(dist[nxt.x] > dist[p.y] + nxt.y){
+                    dist[nxt.x] = dist[p.y] + nxt.y;
+                    pq.add(new Pair(dist[nxt.x],nxt.x));
+                    pre[nxt.x] = p.y;
                 }
             }
         }
-        
-        ArrayList<Integer> temp = new ArrayList<>();
-        System.out.println(dist[end]);
-        int ed = end;
-        while(true){
-            temp.add(ed);
-            ed = pre[ed];
-            if(ed == start){
-                break;
-            }
+        int cnt = 0;
+        int end = b;
+        while(end != 0){
+            answer.add(end);  
+            end = pre[end];
+            cnt += 1;
         }
-        temp.add(start);
-        System.out.println(temp.size());
-        for(int i=temp.size()-1;i>=0;i--){
-            System.out.print(temp.get(i) + " ");
+        System.out.println(dist[b]);
+        System.out.println(cnt);
+        for(int i=cnt-1;i>=0;i--){
+            System.out.print(answer.get(i) + " ");
         }
 	}
 }
