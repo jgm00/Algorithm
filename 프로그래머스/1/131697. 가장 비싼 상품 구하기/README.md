@@ -1,10 +1,10 @@
 # [level 1] 가장 비싼 상품 구하기 - 131697 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131697?language=oracle) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131697) 
 
 ### 성능 요약
 
-메모리: 0.0 MB, 시간: 0.00 ms
+메모리: undefined, 시간: 
 
 ### 구분
 
@@ -12,11 +12,11 @@
 
 ### 채점결과
 
-Empty
+합계: 100.0 / 100.0
 
 ### 제출 일자
 
-2025년 11월 06일 23:37:31
+2026년 10월 11일 20:13:36
 
 ### 문제 설명
 
