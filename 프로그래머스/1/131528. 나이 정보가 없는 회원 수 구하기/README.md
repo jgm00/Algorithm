@@ -1,10 +1,10 @@
 # [level 1] 나이 정보가 없는 회원 수 구하기 - 131528 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131528?language=mysql) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131528) 
 
 ### 성능 요약
 
-메모리: 0.0 MB, 시간: 0.00 ms
+메모리: undefined, 시간: 
 
 ### 구분
 
@@ -12,11 +12,11 @@
 
 ### 채점결과
 
-Empty
+합계: 100.0 / 100.0
 
 ### 제출 일자
 
-2025년 11월 08일 17:13:08
+2026년 10월 11일 20:50:44
 
 ### 문제 설명
 
